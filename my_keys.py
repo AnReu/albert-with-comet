@@ -1,4 +1,4 @@
 # see coment Quickstart guide for these values
-api_key="add comet key here"
-project_name="coment-with-albert-test"
-workspace="add coment workspace name here"
+api_key="9vHrrq52eozKPIiSBx0fSuwnb"
+project_name="comet-with-albert-test"
+workspace="anreu"
