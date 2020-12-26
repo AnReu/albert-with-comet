@@ -532,7 +532,7 @@ def main(_):
     project_name=my_keys.project_name,
     workspace=my_keys.workspace)
     experiment.log_parameters(albert_config)
-
+    experiment.log_parameters(FLAGS)
     tf.logging.info("***** Running training *****")
     tf.logging.info("  Batch size = %d", FLAGS.train_batch_size)
     train_input_fn = input_fn_builder(
