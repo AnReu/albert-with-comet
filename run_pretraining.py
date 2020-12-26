@@ -20,6 +20,7 @@ from __future__ import division
 from __future__ import print_function
 import os
 import time
+from comet_ml import Experiment
 from albert import modeling
 from albert import optimization
 from six.moves import range
@@ -27,6 +28,8 @@ import tensorflow.compat.v1 as tf
 from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import data as contrib_data
 from tensorflow.contrib import tpu as contrib_tpu
+
+from albert import my_keys
 
 flags = tf.flags
 
@@ -524,6 +527,12 @@ def main(_):
       eval_batch_size=FLAGS.eval_batch_size)
 
   if FLAGS.do_train:
+    experiment = Experiment(
+    api_key=my_keys.api_key,
+    project_name=my_keys.project_name,
+    workspace=my_keys.workspace)
+    experiment.log_parameters(albert_config)
+
     tf.logging.info("***** Running training *****")
     tf.logging.info("  Batch size = %d", FLAGS.train_batch_size)
     train_input_fn = input_fn_builder(
