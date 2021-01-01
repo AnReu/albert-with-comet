@@ -21,12 +21,17 @@ from __future__ import print_function
 import math
 import os
 import time
+
+from comet_ml import Experiment
+
 from albert import classifier_utils
 from albert import fine_tuning_utils
 from albert import modeling
 import tensorflow.compat.v1 as tf
 from tensorflow.contrib import cluster_resolver as contrib_cluster_resolver
 from tensorflow.contrib import tpu as contrib_tpu
+
+from albert import my_keys
 
 flags = tf.flags
 
@@ -275,6 +280,13 @@ def main(_):
 
   train_examples = None
   if FLAGS.do_train:
+
+    experiment = Experiment(
+    api_key=my_keys.api_key,
+    project_name='finetune_albert',
+    workspace=my_keys.workspace)
+    experiment.log_parameters(albert_config)
+    experiment.log_parameters(FLAGS)
     train_examples = processor.get_train_examples(FLAGS.data_dir)
   model_fn = classifier_utils.model_fn_builder(
       albert_config=albert_config,
